@@ -1,8 +1,35 @@
-//aAAAAAAAAAAAAaaaAAaaAAAAAaa
-//line 2
-//line 3
-//line 4
-//line 5
-//line 6
-//line 7
-//line 8
+import java.awt.*;
+import javax.swing.*;
+public class DoublePendulum extends JFrame
+{  
+  
+	private final int WINDOW_WIDTH = 500;
+	private final int WINDOW_HEIGHT = 500;
+	
+	
+	// Constructor
+	public DoublePendulum()
+	{
+		
+		setTitle("Double Pendulum");
+		
+		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setVisible(true);
+		
+	}
+  
+  private class Image extends Canvas
+  {
+    
+  }
+	
+	public static void main(String[] args)
+	{
+		new DoublePendulum();
+	}
+	
+	
+}
