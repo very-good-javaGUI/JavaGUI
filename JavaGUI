@@ -1,18 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
-public class DoublePendulum extends JFrame
-{
-	private Canvas canvas;
-	
+public class Converter extends JFrame
+{	
 	private final int WINDOW_WIDTH = 500;
 	private final int WINDOW_HEIGHT = 500;
 	
 	
 	// Constructor
-	public DoublePendulum()
+	public Converter()
 	{
-		
-		setTitle("Double Pendulum");
+		setTitle("Converter");
 		
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		
@@ -21,8 +18,16 @@ public class DoublePendulum extends JFrame
 		setVisible(true);
 	}
 	
+	private class Calculate extends ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			
+		}
+	}
+	
 	public static void main(String[] args)
 	{
-		DoublePendulum pen = new DoublePendulum();
+		new DoublePendulum();
 	}
 }
