@@ -10,32 +10,33 @@ import javax.swing.JPanel;
 public class Pendulum extends JPanel implements ActionListener
 {
 	
-	Timer tm = new Timer(5, this);
+	Timer tm = new Timer(5, this); // sleeps for 5 milliseconds
 	
-	final int mid = 250;
+	final int mid = 250; // the middle of the JFrame
+	final int top = 100; // the top of the pendulum string
 	
-	final int top = 100;
-	
-	private int xPos;
-	private int yPos;
-	private double angle;
-	private double time;
+	private int xPos; // the distance between the middle of the JFrame and the ball
+	private int yPos; // the distance between top and the ball
+	private double angle; // the angle the pendulum is at
+	private double time; // how long the pendulum was oscillating
 	
 	final int gravity = 10;
-	final int length = 150;
-	final double period = 2 * Math.PI * Math.sqrt(length / gravity);
+	final int length = 150; // length of the pendulum
+	final double period = 2 * Math.PI * Math.sqrt(length / gravity); // the period of the wave function
 
-	final int maxAngle = 45;
+	final int maxAngle = 45; //the furthest angle the pundulum can be from rest
 	
+	// every 5 milliseconds the Timer object calls actionPerformed
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{
-		time += 0.1;
-		calcAngle();
-		calcPos();
-		repaint();
+		time += 0.1; // adds time to the function
+		calcAngle(); //recalculates the angle
+		calcPos(); // recalculates the position
+		repaint(); // repaints the pendulum
 	}
 	
+	//paints the pendulum at a specific time
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
@@ -47,23 +48,27 @@ public class Pendulum extends JPanel implements ActionListener
 		tm.start();
 	}
 	
+	// calculates the angle the pendulum is at using a wave function
 	public void calcAngle()
 	{
 		angle = maxAngle * Math.cos((2 * Math.PI * time) / period);
 		angle = degToRad(angle);
 	}
 	
+	//calculates the position
 	public void calcPos()
 	{
 		xPos = (int)(length * Math.sin(angle));
 		yPos = (int)(length * Math.cos(angle));
 	}
-
+	
+	// converts the angle from degrees to radians
 	public double degToRad(double deg)
 	{
 		return (deg * 2 * Math.PI) / 180;
 	}
 	
+	// creates the JFrame and Pendulum
 	public static void main(String[] args)
 	{
 		Pendulum pen = new Pendulum();
