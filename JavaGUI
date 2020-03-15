@@ -1,33 +1,77 @@
-import javax.swing.*;
-import java.awt.*;
-public class Converter extends JFrame
-{	
-	private final int WINDOW_WIDTH = 500;
-	private final int WINDOW_HEIGHT = 500;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class Pendulum extends JPanel implements ActionListener
+{
 	
+	Timer tm = new Timer(5, this);
 	
-	// Constructor
-	public Converter()
+	final int mid = 250;
+	
+	final int top = 100;
+	
+	private int xPos;
+	private int yPos;
+	private double angle;
+	private double time;
+	
+	final int gravity = 10;
+	final int length = 150;
+	final double period = 2 * Math.PI * Math.sqrt(length / gravity);
+
+	final int maxAngle = 45;
+	
+	@Override
+	public void actionPerformed(ActionEvent e) 
 	{
-		setTitle("Converter");
-		
-		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		setVisible(true);
+		time += 0.1;
+		calcAngle();
+		calcPos();
+		repaint();
 	}
 	
-	private class Calculate extends ActionListener
+	public void paintComponent(Graphics g)
 	{
-		public void actionPerformed(ActionEvent e)
-		{
-			
-		}
+		super.paintComponent(g);
+		
+		g.setColor(Color.RED);
+		g.drawLine(mid, top, mid + xPos, top + yPos);
+		g.fillOval(mid - 15 + xPos, top - 15 + yPos, 30, 30);
+		
+		tm.start();
+	}
+	
+	public void calcAngle()
+	{
+		angle = maxAngle * Math.cos((2 * Math.PI * time) / period);
+		angle = degToRad(angle);
+	}
+	
+	public void calcPos()
+	{
+		xPos = (int)(length * Math.sin(angle));
+		yPos = (int)(length * Math.cos(angle));
+	}
+
+	public double degToRad(double deg)
+	{
+		return (deg * 2 * Math.PI) / 180;
 	}
 	
 	public static void main(String[] args)
 	{
-		new DoublePendulum();
+		Pendulum pen = new Pendulum();
+		JFrame jf = new JFrame();
+		jf.setTitle("Pendulum");
+		jf.setSize(500, 500);
+		jf.setVisible(true);
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jf.add(pen);
 	}
 }
